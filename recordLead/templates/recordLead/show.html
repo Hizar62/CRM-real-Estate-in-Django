@@ -1,4 +1,15 @@
 {%extends 'recordLead/base.html'%}
 {% block content%}
-<h4 class="text-center">Leads Data</h4>
+<div class="container centered-form">
+    <div class="row justify-content-center">
+        <div class="col-sm-10">
+            <h4 class="text-center alert alert-info">Leads Data</h4>
+            {% if stu %}
+            <h4>Table Content</h4>
+            {% else %}
+            <h4 class="text-center alert alert-info">No Records</h4>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock content%}
