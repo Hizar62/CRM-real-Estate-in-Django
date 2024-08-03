@@ -1,21 +1,6 @@
 {% extends 'recordLead/base.html' %}
 {% block content %}
 <style>
-    .card.custom-color-1 {
-        background-color: #e4476c; /* Light pink */
-    }
-    .card.custom-color-2 {
-        background-color: #bbeb4b; /* Light green */
-    }
-    .card.custom-color-3 {
-        background-color: #4da2f1; /* Light blue */
-    }
-    .card.custom-color-4 {
-        background-color: #f3a85e; /* Light orange */
-    }
-    .card.custom-color-5 {
-        background-color: #f7f751; /* Light yellow */
-    }
     .card-body {
         padding: 15px;
     }
@@ -25,8 +10,8 @@
 </style>
 <div class="container centered-form">
     <div class="row justify-content-center">
+         <h4 class="text-center alert alert-success">Lead Records</h4>
         <div class="col-sm-10">
-            <a href="/add" class="alert alert-info btn"> Add New Record</a>
             {% if leads %}
                 <div class="row">
                     {% for lead in leads %}

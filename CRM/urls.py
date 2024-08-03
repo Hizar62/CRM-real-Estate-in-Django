@@ -21,6 +21,7 @@ from recordLead import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('account.urls')),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('add/', views.add_Lead, name='addLead'),
     path('show/', views.show_Lead, name='showLead'),
     path('update/', views.update_Lead, name='updateLead'),

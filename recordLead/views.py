@@ -34,3 +34,6 @@ def delete_Lead(request,id):
           pi = Lead.objects.get(pk=id)
           pi.delete()
           return HttpResponseRedirect('/show')
+     
+def dashboard(request):
+     return render(request, 'recordLead/dashboard.html')
