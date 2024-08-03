@@ -1,15 +1,61 @@
-{%extends 'recordLead/base.html'%}
-{% block content%}
+{% extends 'recordLead/base.html' %}
+{% block content %}
+<style>
+    .card.custom-color-1 {
+        background-color: #e4476c; /* Light pink */
+    }
+    .card.custom-color-2 {
+        background-color: #bbeb4b; /* Light green */
+    }
+    .card.custom-color-3 {
+        background-color: #4da2f1; /* Light blue */
+    }
+    .card.custom-color-4 {
+        background-color: #f3a85e; /* Light orange */
+    }
+    .card.custom-color-5 {
+        background-color: #f7f751; /* Light yellow */
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .btn-custom-width {
+        width: 140px; /* Set the width you prefer */
+    }
+</style>
 <div class="container centered-form">
     <div class="row justify-content-center">
         <div class="col-sm-10">
-            <h4 class="text-center alert alert-info">Leads Data</h4>
-            {% if stu %}
-            <h4>Table Content</h4>
+            <a href="/add" class="alert alert-info btn"> Add New Record</a>
+            {% if leads %}
+                <div class="row">
+                    {% for lead in leads %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card {% cycle 'custom-light-1' 'custom-light-2' 'custom-light-3' %}">
+                            <div class="card-body">
+                                <h5 class="card-title">ID: {{ lead.id }}</h5>
+                                <p class="card-text">
+                                    <strong>Customer Name:</strong> {{ lead.customer_name }}<br>
+                                    <strong>Property Type:</strong> {{ lead.property_type }}<br>
+                                    <strong>Property Area:</strong> {{ lead.property_area }}<br>
+                                    <strong>Property Price:</strong> ${{ lead.property_price }}<br>
+                                    <strong>Schedule:</strong> {{ lead.schedule }}
+                                </p>
+                            </div>
+                        </div>
+                        <a href="{% url 'updateLead' lead.id %}" class="btn btn-warning btn-sm btn-custom-width">Edit</a>
+                        <form action="{% url 'deleteLead' lead.id %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" value="Delete" class="btn btn-danger btn-custom-width btn-sm">
+                        </form>
+                        
+                    </div>
+                    {% endfor %}
+                </div>
             {% else %}
-            <h4 class="text-center alert alert-info">No Records</h4>
+                <h4 class="text-center alert alert-warning">No Records</h4>
             {% endif %}
         </div>
     </div>
 </div>
-{% endblock content%}
+{% endblock content %}

@@ -24,4 +24,6 @@ urlpatterns = [
     path('add/', views.add_Lead, name='addLead'),
     path('show/', views.show_Lead, name='showLead'),
     path('update/', views.update_Lead, name='updateLead'),
+    path('delete/<int:id>/', views.delete_Lead, name='deleteLead'),
+    path('<int:id>/', views.update_Lead, name='updateLead'),
 ]
