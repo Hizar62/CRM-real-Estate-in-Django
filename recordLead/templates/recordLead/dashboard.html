@@ -1,11 +1,52 @@
-{%extends 'recordLead/base.html'%}
-{% block content%}
+{% extends 'recordLead/base.html' %}
+{% block content %}
 <div class="container centered-form">
     <div class="row justify-content-center">
-        <div class="col-sm-6">
-            <h4 class="text-center alert alert-info">Dashboard</h4>
-            </form>
+        <h4 class="text-center alert alert-info">Dashboard</h4>
+        <div class="col-sm-8">
+            <!-- Container for Chart.js -->
+            <canvas id="paymentChart" width="400" height="200"></canvas>
         </div>
     </div>
 </div>
-{% endblock content%}
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Pass data as JSON safely -->
+<script type="application/json" id="chartData">
+    {
+        "paid_amount": {{ paid_amount|default:"0"|safe }},
+        "pending_amount": {{ pending_amount|default:"0"|safe }}
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var chartData = JSON.parse(document.getElementById('chartData').textContent);
+        
+        var ctx = document.getElementById('paymentChart').getContext('2d');
+        var paymentChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Paid', 'Pending'],
+                datasets: [{
+                    label: 'Total Payment Amount',
+                    data: [
+                        chartData.paid_amount,
+                        chartData.pending_amount
+                    ],
+                    backgroundColor: ['#4CAF50', '#FFC107'],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock content %}
