@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
 from .forms import LeadRegistration
 from .models import Lead
-
+from django.contrib.auth.decorators import login_required, user_passes_test
+from account.forms import SignUpForm, LoginForm
 # Create your views here.
 def add_Lead(request):
     if request.method == 'POST':
@@ -12,6 +13,7 @@ def add_Lead(request):
     else:
         fm = LeadRegistration()
     return render(request,'recordLead/add.html', {'form':fm})
+
 
 def show_Lead(request): 
         leads = Lead.objects.all()  # Query all leads
@@ -35,5 +37,7 @@ def delete_Lead(request,id):
           pi.delete()
           return HttpResponseRedirect('/show')
      
+@login_required
+@user_passes_test(lambda u: u.is_manager or u.is_admin)     
 def dashboard(request):
      return render(request, 'recordLead/dashboard.html')
