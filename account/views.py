@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import SignUpForm, LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+
 
 def register(request):
     msg = None
@@ -50,6 +51,11 @@ def manager(request):
 @user_passes_test(lambda u: u.is_agent)
 def agent(request):
     return render(request, 'show.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
 
 # class UserList(generics.ListCreateAPIView):
 #     queryset = User.objects.all()
