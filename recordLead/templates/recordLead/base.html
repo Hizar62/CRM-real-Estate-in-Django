@@ -6,43 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leads Record</title>
     <link rel="stylesheet" href="{% static  'recordLead/css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static  'recordLead/css/font-awesome.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
-        .navbar-nav {
-            margin-left: auto; /* Pushes the nav items to the right */
+        body {
+            display: flex;
+        }
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ddd;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #575d63;
+        }
+        .content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 20px;
+        }
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 250px;
+            width: calc(100% - 250px);
+            background-color: #3b4c5a;
+            padding: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .top-nav .search-bar {
+            flex: 1;
+            margin-left: 20px;
+        }
+        .top-nav .nav-icons {
+            display: flex;
+            align-items: center;
+        }
+        .top-nav .nav-icons i {
+            color: #ddd;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .content-wrapper {
+            margin-top: 50px; /* Adjust according to the height of the top-nav */
         }
     </style>
-
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-between"style="background-color: #e3f2fd;">
-        <a class="navbar-brand m-2 h1 " href="{% url 'dashboard'%}">CRM Real Estate</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse ml-auto" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="navbar-brand m-4 h3" href="{% url 'dashboard' %}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand m-4 h3" href="{% url 'showLead' %}">Leads</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand m-4 h3" href="{% url 'addLead' %}">Add Lead</a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand m-4 h3" href="{% url 'logout' %}">Logout</a>
-                </li>
-            </ul>
+    <div class="top-nav">
+        <div class="search-bar">
+            <input type="text" class="form-control" placeholder="Search...">
         </div>
+        <div class="nav-icons">
+            <i class="fa fa-search"></i>
+            <i class="fa fa-user-circle"></i>
+            <i class="fa fa-envelope"></i>
+            <i class="fa fa-bell"></i>
+        </div>
+    </div>
+    <nav class="sidebar">
+        <a class="navbar-brand m-2 h1 text-white" href="{% url 'dashboard' %}">CRM Real Estate</a>
+        <a href="{% url 'dashboard' %}"><i class="fa fa-dashboard"></i> Dashboard</a>
+        <a href="{% url 'showLead' %}"><i class="fa fa-list"></i> Leads</a>
+        <a href="{% url 'addLead' %}"><i class="fa fa-plus"></i> Add Lead</a>
+        <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a>
     </nav>
-    <div class="container mt-5">
-        <!-- <h2 class="text-center alert alert-success">Lead Records</h2> -->
-        {% block content%} {% endblock content%}
+    <div class="content content-wrapper">
+        {% block content %} {% endblock content %}
     </div>
     <script src="{% static 'recordLead/js/jquery.js'%}"></script>
     <script src="{% static 'recordLead/js/popper.js'%}"></script>
     <script src="{% static 'recordLead/js/bootstrap.js'%}"></script>
-
 </body>
 </html>
